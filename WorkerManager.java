@@ -1,6 +1,5 @@
 import java.io.File;
 
-import jdk.nashorn.internal.ir.Block;
 
 public class WorkerManager {
 
@@ -12,8 +11,8 @@ public class WorkerManager {
         System.out.println("non_static excuted");
     }
     public void scanWorkers(){
-        Class class1 = WorkerManager.class;
-        System.out.println(class1);
+        String classPath = WorkerManager.class.getResource("/").toString();
+        System.out.println(classPath);
         File[] classFiles = new File(".\\workers").listFiles();
         for(File classFile:classFiles){
             if(classFile.isFile()){
