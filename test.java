@@ -1,4 +1,6 @@
-import jdk.internal.jshell.tool.resources.l10n;
+import java.io.IOException;
+
+
 
 public class test {
     public static void main(String[] args) throws ClassNotFoundException {
@@ -7,6 +9,11 @@ public class test {
         WorkerManager workerManager = new WorkerManager();
         // workerManager.getClass();
         // workerManager.getClass();
-        workerManager.scanWorkers();
+        try {
+            workerManager.scanWorkers();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
