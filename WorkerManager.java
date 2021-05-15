@@ -4,16 +4,15 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.print.DocFlavor.STRING;
-
 import annotations.Route;
 import annotations.Worker;
+import meta.UrlWorkerMethodMapping;
 
 public class WorkerManager {
 
     ArrayList<String> classArrayList = new ArrayList<String>();
     HashMap<Class<?>, Object> workerPool = new HashMap<Class<?>, Object>();
+    HashMap<String, Object> Mapping = new HashMap<String, Object>();
     ArrayList<Class<?>> workerClassNames = new ArrayList<Class<?>>();
 
     public void scanWorkers() throws IOException, ClassNotFoundException {
@@ -41,7 +40,6 @@ public class WorkerManager {
             }
 
             Method[] methods = worker.getMethods();
-            System.out.println(methods);
             for(int j = 0; j<methods.length;j++){
                 String methodURL = "";
                 Route methodRoute = methods[j].getAnnotation(Route.class);
@@ -51,12 +49,15 @@ public class WorkerManager {
                 }
                 else{
                     methodURL = classRoute + methodRoute.value();
+                    Mapping.put(methodURL, new UrlWorkerMethodMapping(methodURL, worker, methods[j]));
                 }
                 
                 System.out.println(methodURL);
             }
 
         }
+
+        System.out.println(Mapping);
     }
 
     public void findAllWorker(String classPath) throws ClassNotFoundException {

@@ -6,7 +6,9 @@ import annotations.Worker;
 public class MyThirdWorker {
     
     @Route("/thirdWorker/action")
-    public void action(){
+    public String action(){
         System.out.println("action called");
+
+        return "nihaoya";
     }
 }
