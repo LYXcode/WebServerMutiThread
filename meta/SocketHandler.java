@@ -1,8 +1,7 @@
+package meta;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
-
-import meta.UrlWorkerMethodMapping;
 
 
 
@@ -39,12 +38,14 @@ public class SocketHandler implements Runnable {
           try {
             Object object = urlWorkerMethodMapping.getClassName().newInstance();
             Object result = urlWorkerMethodMapping.getMethodName().invoke(object);
-            String response = "http/1.1 200 ok\r\n"+"\r\n"+ result;
-            System.out.println(response);
-            this.bufferedWriter.write(response);
+            Response response = new Response("200", "OK", null, result);
+            String respoString = response.createResponse();
+            // String response = "http/1.1 200 ok\r\n"+"\r\n"+ result;
+            System.out.println(respoString);
+            this.bufferedWriter.write(respoString);
             this.bufferedWriter.flush();
             this.bufferedWriter.close();
-            System.out.println(result);
+            // System.out.println(result);
         } catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

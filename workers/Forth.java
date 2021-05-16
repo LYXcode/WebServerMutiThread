@@ -1,16 +1,13 @@
 package workers;
+import annotations.Route;
+import annotations.Worker;
 
-import annotations.*;
 @Worker
-@Route("/firstWorker")
-public class MyWorker {
-
-    int a = 10;
+@Route("/forthWorker")
+public class Forth {
     @Route("/action")
     public String action(){
         System.out.println("action called");
-
-        return "hello world";
+        return "forth";
     }
-    
 }

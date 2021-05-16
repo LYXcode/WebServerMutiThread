@@ -1,3 +1,4 @@
+package meta;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -6,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import annotations.Route;
 import annotations.Worker;
-import meta.UrlWorkerMethodMapping;
 
 public class WorkerManager {
 
