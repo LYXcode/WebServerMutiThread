@@ -1,0 +1,10 @@
+# WebServerMultiThread
+
+## 目标：
+了解服务器工作的基本原理，然后试着结合ioc容器，把服务器和框架结合成一个单独的功能包，这样可以导入包后，直接就像普通的java代码一样，把精力集中在业务逻辑方面。实现了把对应的url映射到指定的类的方法。
+
+## 流程：
+1.在new一个server类的时候，利用WorkerManager.class.getResource("/").getPath()获得classpath路径把路径下的class文件和子目录下class文件添加到数组里。  
+2.然后利用Class.forName(类名字字符串)把生成所有的类的class对象，然后利用反射获得具有Worker的class对象，添加到woker的list容器里面，接着再利用反射找到route注解，并将类层面的route注解所注明的路径作为类的基础路径，然后再去找方法层面的route注解，然后和基础路径构成到方法的路径，然后就可以把 对应的class对象和反射获得的对应路径方法存到一个目标对象里，然后路径和这个目标对象存到hashmap里面进行映射。
+
+3.然后新建一个线程池，来处理socket连接，每个线程执行一个sockethandler的任务，会socket传过来的数据，按http的格式解析成一个request对象，然后从路径方法的映射容器里找到对应的映射对象，然后利用映射里面获得class对象new一个该类的实例，然后调用对应的方法，获取对应方法的结果，然后把方法的结果放到一个response对象里面，然后把response变成字符串后，发给客户端。
